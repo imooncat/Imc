@@ -3,16 +3,18 @@ package org.imc.net;
 /*
 	Author:		imooncat
 	Date:		14-7-10
-	Version:	1.0
+	Version:	1.1
 	Function:	Wifi controller.
 				Includes:
 					open/close WIFI
 					get WIFI state
 					connect WIFI with/without password
+	Usage:		openWifi();
+				connectWifi(SSID, password, WC_TYPE);
 */
 
 /*
-	Need permission statement in AndroidManifest.xml:
+	Need to add permission statement in AndroidManifest.xml:
 		<uses-permission android:name="android.permission.CHANGE_NETWORK_STATE" />
 		<uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
 		<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
