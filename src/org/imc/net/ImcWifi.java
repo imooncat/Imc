@@ -170,64 +170,58 @@ public class ImcWifi
 	}
 	
 	private WifiConfiguration exists(String SSID) {
-        List<WifiConfiguration> existingConfigs = iWifiManager.getConfiguredNetworks();
-        for (WifiConfiguration existingConfig : existingConfigs) {
-            if (existingConfig.SSID.equals("\"" + SSID + "\"")) {
-                return existingConfig;
-            }
-        }
-        return null;
-    }
+		List<WifiConfiguration> existingConfigs = iWifiManager.getConfiguredNetworks();
+		for (WifiConfiguration existingConfig : existingConfigs)
+			if (existingConfig.SSID.equals("\"" + SSID + "\""))
+				return existingConfig;
+		return null;
+	}
 	
 	public WifiConfiguration CreateWifiInfo(String SSID, String Password, int Type)
     {
-        WifiConfiguration config = new WifiConfiguration();
-        config.allowedAuthAlgorithms.clear();
-        config.allowedGroupCiphers.clear();
-        config.allowedKeyManagement.clear();
-        config.allowedPairwiseCiphers.clear();
-        config.allowedProtocols.clear();
-        config.SSID = "\"" + SSID + "\"";
+		WifiConfiguration config = new WifiConfiguration();
+		config.allowedAuthAlgorithms.clear();
+		config.allowedGroupCiphers.clear();
+		config.allowedKeyManagement.clear();
+		config.allowedPairwiseCiphers.clear();
+		config.allowedProtocols.clear();
+		config.SSID = "\"" + SSID + "\"";
 
-        WifiConfiguration tempConfig = exists(SSID);
+		WifiConfiguration tempConfig = exists(SSID);
 
-        if (tempConfig != null)
-            iWifiManager.removeNetwork(tempConfig.networkId);
+		if (tempConfig != null)
+			iWifiManager.removeNetwork(tempConfig.networkId);
 
-        if (Type == 1) // WC_NOPASS
-        {
-            config.wepKeys[0] = "";
-            config.allowedKeyManagement.set(WifiConfiguration.KeyMgmt.NONE);
-            config.wepTxKeyIndex = 0;
-        }
-        if (Type == 2) // WC_WEP
-        {
-            config.hiddenSSID = true;
-            config.wepKeys[0] = "\"" + Password + "\"";
-            config.allowedAuthAlgorithms.set(WifiConfiguration.AuthAlgorithm.SHARED);
-            config.allowedGroupCiphers.set(WifiConfiguration.GroupCipher.CCMP);
-            config.allowedGroupCiphers.set(WifiConfiguration.GroupCipher.TKIP);
-            config.allowedGroupCiphers.set(WifiConfiguration.GroupCipher.WEP40);
-            config.allowedGroupCiphers.set(WifiConfiguration.GroupCipher.WEP104);
-            config.allowedKeyManagement.set(WifiConfiguration.KeyMgmt.NONE);
-            config.wepTxKeyIndex = 0;
-        }
-        if (Type == 3) // WC_WPA
-        {
-            config.preSharedKey = "\"" + Password + "\"";
-
-            config.hiddenSSID = true;
-            config.allowedAuthAlgorithms.set(WifiConfiguration.AuthAlgorithm.OPEN);
-            config.allowedGroupCiphers.set(WifiConfiguration.GroupCipher.TKIP);
-            config.allowedKeyManagement.set(WifiConfiguration.KeyMgmt.WPA_PSK);
-            config.allowedPairwiseCiphers.set(WifiConfiguration.PairwiseCipher.TKIP);
-            // config.allowedProtocols.set(WifiConfiguration.Protocol.WPA);
-            config.allowedGroupCiphers.set(WifiConfiguration.GroupCipher.CCMP);
-            config.allowedPairwiseCiphers.set(WifiConfiguration.PairwiseCipher.CCMP);
-            config.status = WifiConfiguration.Status.ENABLED;
-        }
-        return config;
-    }
+		if (Type == 1) { // WC_NOPASS
+		 	config.wepKeys[0] = "";
+	 	 	config.allowedKeyManagement.set(WifiConfiguration.KeyMgmt.NONE);
+			config.wepTxKeyIndex = 0;
+		}
+		if (Type == 2) { // WC_WEP
+			config.hiddenSSID = true;
+			config.wepKeys[0] = "\"" + Password + "\"";
+			config.allowedAuthAlgorithms.set(WifiConfiguration.AuthAlgorithm.SHARED);
+			config.allowedGroupCiphers.set(WifiConfiguration.GroupCipher.CCMP);
+			config.allowedGroupCiphers.set(WifiConfiguration.GroupCipher.TKIP);
+			config.allowedGroupCiphers.set(WifiConfiguration.GroupCipher.WEP40);
+			config.allowedGroupCiphers.set(WifiConfiguration.GroupCipher.WEP104);
+			config.allowedKeyManagement.set(WifiConfiguration.KeyMgmt.NONE);
+			config.wepTxKeyIndex = 0;
+		}
+		if (Type == 3) { // WC_WPA
+			config.preSharedKey = "\"" + Password + "\"";
+			config.hiddenSSID = true;
+			config.allowedAuthAlgorithms.set(WifiConfiguration.AuthAlgorithm.OPEN);
+			config.allowedGroupCiphers.set(WifiConfiguration.GroupCipher.TKIP);
+			config.allowedKeyManagement.set(WifiConfiguration.KeyMgmt.WPA_PSK);
+			config.allowedPairwiseCiphers.set(WifiConfiguration.PairwiseCipher.TKIP);
+			// config.allowedProtocols.set(WifiConfiguration.Protocol.WPA);
+			config.allowedGroupCiphers.set(WifiConfiguration.GroupCipher.CCMP);
+			config.allowedPairwiseCiphers.set(WifiConfiguration.PairwiseCipher.CCMP);
+			config.status = WifiConfiguration.Status.ENABLED;
+		}
+		return config;
+	}
 	
 	public void connectWifi(final String ssid, final String pass, final int type)
 	{
@@ -235,14 +229,11 @@ public class ImcWifi
 	}
 	
 	public boolean isConnected()
-    {
-        ConnectivityManager connectivityManager = (ConnectivityManager)context.getSystemService(Context.CONNECTIVITY_SERVICE);
-        NetworkInfo wifiNetworkInfo = connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
-        if(wifiNetworkInfo.isConnected())
-        {
-            return true ;
-        }
-
-        return false ;
-    }
+	{
+		ConnectivityManager connectivityManager = (ConnectivityManager)context.getSystemService(Context.CONNECTIVITY_SERVICE);
+		NetworkInfo wifiNetworkInfo = connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
+		if(wifiNetworkInfo.isConnected())
+			return true ;
+		return false ;
+	}
 }
