@@ -106,4 +106,10 @@ public class ImcActionBar
 	{
 		return actView;
 	}
+	
+	public void clear()
+	{
+		layoutId = 0;
+		actView = null;
+	}
 }
