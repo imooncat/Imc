@@ -177,8 +177,8 @@ public class ImcWifi
 		return null;
 	}
 	
-	public WifiConfiguration CreateWifiInfo(String SSID, String Password, int Type)
-    {
+	public WifiConfiguration createWifiInfo(String SSID, String Password, int Type)
+	{
 		WifiConfiguration config = new WifiConfiguration();
 		config.allowedAuthAlgorithms.clear();
 		config.allowedGroupCiphers.clear();
@@ -225,7 +225,7 @@ public class ImcWifi
 	
 	public void connectWifi(final String ssid, final String pass, final int type)
 	{
-		addNetwork(CreateWifiInfo(ssid, pass, type));
+		addNetwork(createWifiInfo(ssid, pass, type));
 	}
 	
 	public boolean isConnected()
